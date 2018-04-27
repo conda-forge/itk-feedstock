@@ -28,10 +28,7 @@ cmake .. -G "Ninja" ^
     -DModule_ITKReview:BOOL=ON ^
     -DITK_USE_REVIEW_STATISTICS:BOOL=ON ^
     -DITK_USE_OPTIMIZED_REGISTRATION_METHODS:BOOL=ON ^
-    -DITKV3_COMPATIBILITY:BOOL=ON ^
-if errorlevel 1 exit 1
-
-ninja
+    -DITKV3_COMPATIBILITY:BOOL=ON
 if errorlevel 1 exit 1
 
 ninja install

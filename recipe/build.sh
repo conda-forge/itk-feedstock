@@ -5,7 +5,7 @@ cd build
 
 BUILD_CONFIG="Release"
 
-cmake .. -G "Ninja"\
+cmake .. -G "Ninja" \
     -Wno-dev \
     -DCMAKE_BUILD_TYPE:STRING=$BUILD_CONFIG \
     -DCMAKE_INSTALL_PREFIX:PATH=${PREFIX} \
@@ -26,7 +26,6 @@ cmake .. -G "Ninja"\
     -DModule_ITKReview:BOOL=ON \
     -DITK_USE_REVIEW_STATISTICS:BOOL=ON \
     -DITK_USE_OPTIMIZED_REGISTRATION_METHODS:BOOL=ON \
-    -DITKV3_COMPATIBILITY:BOOL=ON \
-ninja
+    -DITKV3_COMPATIBILITY:BOOL=ON
 
 ninja install
