@@ -2,8 +2,6 @@ mkdir wk
 cd wk
 
 set RELEASE_TYPE="Release"
-:: tell cmake where Python is
-set PYTHON_LIBRARY=%PREFIX%\libs\python%PY_VER:~0,1%%PY_VER:~2,1%.lib
 
 cmake .. -G "Ninja" ^
     -Wno-dev ^
