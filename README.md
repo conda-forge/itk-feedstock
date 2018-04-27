@@ -14,9 +14,10 @@ Summary: ITK is an open-source toolkit for multidimensional image analysis
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/itk-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/itk-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/itk-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/itk-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/itk-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/itk-feedstock/branch/master)
+[![Linux,OSX](https://img.shields.io/circleci/project/github/conda-forge/vtk-feedstock/master.svg?label=Linux,OSX)]
+(https://circleci.com/gh/conda-forge/itk-feedstock)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/vtk-feedstock/master.svg?label=Windows)]
+(https://ci.appveyor.com/project/conda-forge/itk-feedstock/branch/master)
 
 Current release info
 ====================
