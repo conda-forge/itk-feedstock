@@ -25,15 +25,34 @@ requirements:
     - cmake
     - ninja
     - python
-    - vc 9  # [win and py27]
+    - future # used in the generated python wrappers
+    - vc 9   # [win and py27]
     - vc 14  # [win and py>=35]
+    # ITK Third Party dependencies
+    - gdcm 2.8.*
+    - expat
+    - hdf5 1.8.18|1.8.18.*
+    - jpeg 9*
+    - openjpeg >=2.2.0
+    - libpng >=1.6.23,<1.7
+    - libtiff 4.0.*
+    - zlib 1.2.*
 
   run:
     - python
     - future  # used in the generated python wrappers
-    - vc 9  # [win and py27]
-    - vc 14  # [win and py>=35]
+    - vc 9    # [win and py27]
+    - vc 14   # [win and py>=35]
     - numpy
+    # ITK Third Party dependencies
+    - gdcm 2.8.*
+    - expat
+    - hdf5 1.8.18|1.8.18.*
+    - jpeg 9*
+    - openjpeg >=2.2.0
+    - libpng >=1.6.23,<1.7
+    - libtiff 4.0.*
+    - zlib 1.2.*
 
 test:
   imports:
