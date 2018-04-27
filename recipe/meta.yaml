@@ -1,19 +1,58 @@
+{% set version = "4.13.0" %}
+{% set build_number = 1 %}
+{% set minor_version = ".".join(version.split(".")[:2]) %}
+{% set source_sha256 = "37122d65b89699df33f34e0859f1e7adf5a6222060dc1c47383ff7aa4531223a" %} 
+
 package:
   name: itk
-  version: "4.13.0"
+  version: {{ version }}
+
+source:
+  url: https://github.com/Kitware/ITK/archive/v{{ version }}.tar.gz
+  sha256: {{ source_sha256 }}
+
 
 build:
-  number: 0
+  number: {{ build_number }}
   skip: True  # [win32]
+  features:
+    - vc9   # [win and py27]
+    - vc14  # [win and py>=35]
 
 requirements:
   build:
+    - toolchain
+    - cmake
+    - ninja
     - python
-    - pip
-    - wheel
+    - future # used in the generated python wrappers
+    - vc 9   # [win and py27]
+    - vc 14  # [win and py>=35]
+    # ITK Third Party dependencies
+    - gdcm 2.8.*
+    - expat
+    - hdf5 1.8.18|1.8.18.*
+    - jpeg 9*
+    - openjpeg >=2.2.0
+    - libpng >=1.6.23,<1.7
+    - libtiff 4.0.*
+    - zlib 1.2.*
+
   run:
     - python
+    - future  # used in the generated python wrappers
+    - vc 9    # [win and py27]
+    - vc 14   # [win and py>=35]
     - numpy
+    # ITK Third Party dependencies
+    - gdcm 2.8.*
+    - expat
+    - hdf5 1.8.18|1.8.18.*
+    - jpeg 9*
+    - openjpeg >=2.2.0
+    - libpng >=1.6.23,<1.7
+    - libtiff 4.0.*
+    - zlib 1.2.*
 
 test:
   imports:
@@ -30,3 +69,4 @@ extra:
   recipe-maintainers:
     - thewtex
     - ericdill
+    - rlizzo

@@ -1,21 +1,39 @@
 #!/bin/bash
 
-# install using pip from the whl files on PyPI
+mkdir build
+cd build
 
-POST=""
-PYPI_VER="${PY_VER:0:1}${PY_VER:2:3}"
+BUILD_CONFIG="Release"
 
-for DEP_PACKAGE in core io filtering numerics registration segmentation; do
-  if [ `uname` == Darwin ]; then
-      WHL_FILE=https://pypi.org/packages/cp${PYPI_VER}/i/itk-${DEP_PACKAGE}/itk_${DEP_PACKAGE}-${PKG_VERSION}${POST}-cp${PYPI_VER}-cp${PYPI_VER}m-macosx_10_6_x86_64.whl
-  fi
+cmake .. -G "Ninja" \
+    -Wno-dev \
+    -DCMAKE_BUILD_TYPE:STRING=$BUILD_CONFIG \
+    -DCMAKE_INSTALL_PREFIX:PATH=${PREFIX} \
+    -DCMAKE_INSTALL_RPATH:PATH="${PREFIX}/lib" \
+    -DITK_WRAP_PYTHON:BOOL=ON \
+    -DWRAP_ITK_SWIG_ARGS_PYTHON:STRING='-threads' \
+    -DITK_LEGACY_SILENT:BOOL=ON \
+    -DPYTHON_LIBRARY:PATH=${STDLIB_DIR} \
+    -DPYTHON_EXECUTABLE:PATH=${PYTHON} \
+    -DPY_SITE_PACKAGES_PATH:PATH=${SP_DIR} \
+    -DITK_LEGACY_REMOVE:BOOL=OFF \
+    -DITK_USE_FLAT_DIRECTORY_INSTALL:BOOL=ON \
+    -DBUILD_SHARED_LIBS:BOOL=ON \
+    -DBUILD_EXAMPLES:BOOL=OFF \
+    -DBUILD_TESTING:BOOL=OFF \
+    -DITK_BUILD_DEFAULT_MODULES:BOOL=ON \
+    -DITK_INSTALL_NO_DEVELOPMENT:BOOL=ON \
+    -DModule_ITKReview:BOOL=ON \
+    -DITK_USE_REVIEW_STATISTICS:BOOL=ON \
+    -DITK_USE_OPTIMIZED_REGISTRATION_METHODS:BOOL=ON \
+    -DITKV3_COMPATIBILITY:BOOL=ON \
+    -DITK_USE_SYSTEM_GDCM:BOOL=ON \
+    -DITK_USE_SYSTEM_EXPAT:BOOL=ON \
+    -DITK_USE_SYSTEM_HDF5:BOOL=ON \
+    -DITK_USE_SYSTEM_JPEG:BOOL=ON \
+    -DITK_USE_SYSTEM_OPENJPEG:BOOL=ON \
+    -DITK_USE_SYSTEM_PNG:BOOL=ON \
+    -DITK_USE_SYSTEM_TIFF:BOOL=ON \
+    -DITK_USE_SYSTEM_ZLIB:BOOL=ON
 
-  if [ `uname` == Linux ]; then
-      if [ "$PY_VER" == "2.7" ]; then
-          WHL_FILE=https://pypi.org/packages/cp${PYPI_VER}/i/itk-${DEP_PACKAGE}/itk_${DEP_PACKAGE}-${PKG_VERSION}${POST}-cp${PYPI_VER}-cp${PYPI_VER}mu-manylinux1_x86_64.whl
-      else
-          WHL_FILE=https://pypi.org/packages/cp${PYPI_VER}/i/itk-${DEP_PACKAGE}/itk_${DEP_PACKAGE}-${PKG_VERSION}${POST}-cp${PYPI_VER}-cp${PYPI_VER}m-manylinux1_x86_64.whl
-      fi
-  fi
-  pip install --no-deps $WHL_FILE
-done
+ninja install
