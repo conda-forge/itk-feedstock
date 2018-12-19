@@ -3,7 +3,7 @@ package:
   version: "4.13.1"
 
 build:
-  number: 0
+  number: 1000
   skip: True  # [win32]
 
 requirements:
