@@ -1,9 +1,9 @@
 package:
   name: itk
-  version: "4.13.1"
+  version: "4.13.2"
 
 build:
-  number: 1000
+  number: 0
   skip: True  # [win32]
 
 requirements:
