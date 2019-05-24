@@ -1,7 +1,7 @@
 About itk
 =========
 
-Home: http://www.itk.org/
+Home: https://www.itk.org/
 
 Package license: Apache 2.0
 
@@ -104,6 +104,7 @@ Current build status
       </details>
     </td>
   </tr>
+![ppc64le disabled](https://img.shields.io/badge/ppc64le-disabled-lightgrey.svg)
 </table>
 
 Current release info

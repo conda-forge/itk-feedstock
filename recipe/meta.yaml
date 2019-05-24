@@ -1,10 +1,10 @@
 package:
   name: itk
-  version: "4.13.2"
+  version: "5.0.0"
 
 build:
   number: 0
-  skip: True  # [win32]
+  skip: True  # [win32 or (win64 and py2k)]
 
 requirements:
   build:
@@ -20,7 +20,7 @@ test:
     - itk
 
 about:
-  home: http://www.itk.org/
+  home: https://www.itk.org/
   license: Apache 2.0
   summary: ITK is an open-source toolkit for multidimensional image analysis
   doc_url: https://itk.org/ITK/help/documentation.html
