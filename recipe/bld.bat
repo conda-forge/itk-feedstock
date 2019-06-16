@@ -1,4 +1,4 @@
-set POST=
+set POST=.post1
 set PYPI_VER=%PY_VER:~0,1%%PY_VER:~2,1%
 
 FOR %%D IN (core,io,filtering,numerics,registration) DO (
