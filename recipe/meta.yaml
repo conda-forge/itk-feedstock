@@ -21,7 +21,8 @@ test:
 
 about:
   home: https://www.itk.org/
-  license: Apache 2.0
+  license: Apache-2.0
+  license_file: LICENSE.txt
   summary: ITK is an open-source toolkit for multidimensional image analysis
   doc_url: https://itk.org/ITK/help/documentation.html
   dev_url: https://github.com/InsightSoftwareConsortium/ITK
