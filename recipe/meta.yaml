@@ -1,9 +1,9 @@
 package:
   name: itk
-  version: "5.0.0"
+  version: "5.0.1"
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win32 or (win64 and py2k)]
 
 requirements:
