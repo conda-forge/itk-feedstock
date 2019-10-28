@@ -1,22 +1,29 @@
+{% set name = "itk" %}
+{% set version = "5.3.0" %}
+
 package:
-  name: itk
-  version: "5.3.0"
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/InsightSoftwareConsortium/ITKPythonPackage/archive/v{{version}}.tar.gz
+  sha256: cca1bd3ab5ac0f639f22760ab25b08c917107c44a770ab79a67da1d51c325be3
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win32 or (win64 and py2k)]
 
 requirements:
   build:
+    - cmake   >=3.10
+    - ninja
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
     - python
-    - pip
-    - wheel
-    - numpy
-    - setuptools
   run:
     - python
     - numpy
-    - setuptools
 
 test:
   imports:
