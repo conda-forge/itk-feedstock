@@ -3,7 +3,7 @@ package:
   version: "5.0.1"
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win32 or (win64 and py2k)]
 
 requirements:
@@ -22,7 +22,9 @@ test:
 about:
   home: https://www.itk.org/
   license: Apache-2.0
-  license_file: LICENSE.txt
+  license_file: 
+    - LICENSE.txt
+    - NOTICE
   summary: ITK is an open-source toolkit for multidimensional image analysis
   doc_url: https://itk.org/ITK/help/documentation.html
   dev_url: https://github.com/InsightSoftwareConsortium/ITK
