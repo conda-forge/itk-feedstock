@@ -1,6 +1,16 @@
+{% set name = "itk" %}
+{% set version = "5.0.1" %}
+{% set sha256 = "5e533f86712740ec39f9b52135fbde01a7070fae698c1c33b6142988d5c0477c" %}
+{% set build_number = 1 %}
+
+
 package:
-  name: itk
-  version: "5.0.1"
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/InsightSoftwareConsortium/ITKPythonPackage/archive/v{{version}}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
   number: 1
@@ -8,9 +18,18 @@ build:
 
 requirements:
   build:
-    - python
+    - cmake   >=3.10
+    - ninja
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - scikit-build  ==0.8.1
     - pip
-    - wheel
+    - doxygen
+
+  host:
+    - python
+    - scikit-build  ==0.8.1
+
   run:
     - python
     - numpy
