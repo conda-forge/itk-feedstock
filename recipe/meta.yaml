@@ -11,9 +11,11 @@ requirements:
     - python
     - pip
     - wheel
+    - setuptools
   run:
     - python
     - numpy
+    - setuptools
 
 test:
   imports:
