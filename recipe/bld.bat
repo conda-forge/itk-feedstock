@@ -1,4 +1,4 @@
-set POST=.post2
+set POST=.post3
 set PYPI_VER=%PY_VER:~0,1%%PY_VER:~2,1%
 
  set MPOST= ELSE set MPOST=m
