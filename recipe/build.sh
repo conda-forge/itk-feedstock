@@ -2,7 +2,7 @@
 
 # install using pip from the whl files on PyPI
 
-POST=".post2"
+POST=".post3"
 PYPI_VER="${PY_VER:0:1}${PY_VER:2:3}"
 
 for DEP_PACKAGE in core io filtering numerics registration segmentation; do
