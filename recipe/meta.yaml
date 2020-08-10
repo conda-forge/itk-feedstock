@@ -3,7 +3,7 @@ package:
   version: "5.1.0"
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win32 or (win64 and py2k)]
 
 requirements:
