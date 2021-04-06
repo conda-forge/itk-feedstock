@@ -16,9 +16,9 @@ for DEP_PACKAGE in core io filtering numerics registration segmentation; do
 
   if [ `uname` == Linux ]; then
       if [ "$PY_VER" == "3.8" -o "$PY_VER" == "3.9" ]; then
-          WHL_FILE=https://pypi.org/packages/cp${PYPI_VER}/i/itk-${DEP_PACKAGE}/itk_${DEP_PACKAGE}-${PKG_VERSION}${POST}-cp${PYPI_VER}-cp${PYPI_VER}-manylinux1_x86_64.whl
+          WHL_FILE=https://pypi.org/packages/cp${PYPI_VER}/i/itk-${DEP_PACKAGE}/itk_${DEP_PACKAGE}-${PKG_VERSION}${POST}-cp${PYPI_VER}-cp${PYPI_VER}-manylinux2014_x86_64.whl
       else
-          WHL_FILE=https://pypi.org/packages/cp${PYPI_VER}/i/itk-${DEP_PACKAGE}/itk_${DEP_PACKAGE}-${PKG_VERSION}${POST}-cp${PYPI_VER}-cp${PYPI_VER}m-manylinux1_x86_64.whl
+          WHL_FILE=https://pypi.org/packages/cp${PYPI_VER}/i/itk-${DEP_PACKAGE}/itk_${DEP_PACKAGE}-${PKG_VERSION}${POST}-cp${PYPI_VER}-cp${PYPI_VER}m-manylinux2014_x86_64.whl
       fi
   fi
   pip install --no-deps $WHL_FILE
