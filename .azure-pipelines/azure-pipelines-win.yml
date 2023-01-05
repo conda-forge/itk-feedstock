@@ -17,6 +17,12 @@ jobs:
       win_64_numpy1.19python3.9.____cpython:
         CONFIG: win_64_numpy1.19python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.22python3.10.____cpython:
+        CONFIG: win_64_numpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.23python3.11.____cpython:
+        CONFIG: win_64_numpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\
@@ -78,7 +84,6 @@ jobs:
         call activate base
         run_conda_forge_build_setup
       displayName: conda-forge build setup
-    
 
     # Special cased version setting some more things!
     - script: |
