@@ -15,12 +15,14 @@ build:
 
 requirements:
   build:
-    - cmake   >=3.10
+    - cmake >=3.10
     - ninja
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - scikit-build
   host:
     - python
+    - scikit-build
   run:
     - python
     - numpy
