@@ -19,6 +19,7 @@ requirements:
     - ninja
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - doxygen
     - scikit-build
   host:
     - python
