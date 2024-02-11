@@ -7,6 +7,8 @@ build:
   skip: True  # [win32 or (win64 and py2k)]
 
 requirements:
+  build:
+    - pip  # [build_platform != target_platform]
   host:
     - python
     - pip
