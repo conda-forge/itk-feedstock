@@ -8,6 +8,8 @@ build:
 
 requirements:
   build:
+    - pip  # [build_platform != target_platform]
+  host:
     - python
     - pip
     - wheel
