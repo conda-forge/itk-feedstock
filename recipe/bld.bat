@@ -25,7 +25,7 @@ for %%D in (%ITK_MODULES%) do (
 
     REM Retrieve a list of URLs for the specified ITK version via PyPI
     curl -s "https://pypi.org/pypi/itk-%%D/json" ^
-        | jq -r ".releases[\"%ITK_VERSION%\"][] | .url" > candidate_urls.txt
+        | jq.exe -r ".releases[\"%ITK_VERSION%\"][] | .url" > candidate_urls.txt
 
     REM Find the first URL matching "cp%PYPI_VER%" and the platform
     set "MATCHED_URL="
