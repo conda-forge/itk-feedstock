@@ -14,13 +14,13 @@ build:
 
 requirements:
   host:
-    - python >=3.11
+    - python
     - pip
     - wheel
     - numpy
     - setuptools
   run:
-    - python >=3.11
+    - python
     - numpy
 
 test:
