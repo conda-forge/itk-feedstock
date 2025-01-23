@@ -21,6 +21,10 @@ jobs:
     UPLOAD_TEMP: D:\\tmp
 
   steps:
+    - script: |
+        choco install jq -fdv -y --debug
+      displayName: "Install Chocolatey Package: jq"
+
 
     - script: |
         call ".scripts\run_win_build.bat"
