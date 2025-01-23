@@ -1,26 +1,33 @@
+{% set name = "itk" %}
+{% set version = "5.4.0" %}
 package:
-  name: itk
-  version: "5.3.0"
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/InsightSoftwareConsortium/ITK/releases/download/v{{ version }}/InsightToolkit-{{ version }}.tar.gz
+  md5: 5f7b1d3e150ebbce9ab8fb6c6f27cbe4
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win32 or (win64 and py2k)]
 
 requirements:
   host:
-    - python
+    - python >=3.11
     - pip
     - wheel
     - numpy
     - setuptools
   run:
-    - python
+    - python >=3.11
     - numpy
-    - setuptools
 
 test:
   imports:
     - itk
+  requires:
+    - pip
 
 about:
   home: https://www.itk.org/
@@ -34,5 +41,5 @@ about:
 
 extra:
   recipe-maintainers:
-    - thewtex
     - hanayik
+    - thewtex

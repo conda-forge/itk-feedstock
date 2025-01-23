@@ -244,4 +244,5 @@ Feedstock Maintainers
 =====================
 
 * [@thewtex](https://github.com/thewtex/)
+* [@hanayik](https://github.com/hanayik/)
 
