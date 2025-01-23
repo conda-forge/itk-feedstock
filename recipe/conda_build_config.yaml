@@ -4,19 +4,15 @@ zipped_keys:
 python:
   - 3.11.* *_cpython
   - 3.12.* *_cpython
-  - 3.13.* *_cpython
 
 python_impl:
-  - cpython
   - cpython
   - cpython
 
 numpy:
   - "2.1.*"
   - "2.1.*"
-  - "2.1.*"
 
 is_python_min:
-  - false
   - false
   - false
