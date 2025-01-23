@@ -16,6 +16,8 @@ python:
 - 3.9.* *_cpython
 target_platform:
 - linux-64
+tk:
+- '8.6'
 zip_keys:
 - - python
   - numpy
