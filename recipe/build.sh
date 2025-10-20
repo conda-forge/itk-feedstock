@@ -64,7 +64,7 @@ for DEP_PACKAGE in "${ITK_MODULES[@]}"; do
   echo "Matched URL for itk-${DEP_PACKAGE}: $MATCHED_URL"
 
   # Install the matched wheel file without dependencies
-  pip install --no-deps "$MATCHED_URL"
+  $PYTHON -m pip install --no-deps "$MATCHED_URL"
 done
 
 echo "All specified ITK modules have been installed successfully."
