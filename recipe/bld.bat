@@ -1,11 +1,51 @@
-set POST=
-set PYPI_VER=%PY_VER:~0,1%%PY_VER:~2,2%
+set BUILD_DIR=%SRC_DIR%\bld
+mkdir %BUILD_DIR%
+cd %BUILD_DIR%
 
- set MPOST= ELSE set MPOST=m
+SET CXX_FLAGS="%CXX_FLAGS% /MP"
 
-FOR %%D IN (core,io,filtering,numerics,registration) DO (
-  :: Python 3.11 -- this could be improved
-  IF %PY_VER:~2,2% GEQ 8 %PYTHON% -m pip install --no-deps https://pypi.org/packages/cp%PYPI_VER%/i/itk-%%D/itk_%%D-%PKG_VERSION%%POST%-cp%PYPI_VER%-cp%PYPI_VER%-win_amd64.whl
-  IF %PY_VER:~2,2% LSS 8 %PYTHON% -m pip install --no-deps https://pypi.org/packages/cp%PYPI_VER%/i/itk-%%D/itk_%%D-%PKG_VERSION%%POST%-cp%PYPI_VER%-cp%PYPI_VER%m-win_amd64.whl
-)
+REM Configure Step
+cmake -G "Ninja" ^
+    -D BUILD_SHARED_LIBS:BOOL=ON ^
+    -D BUILD_TESTING:BOOL=OFF ^
+    -D BUILD_EXAMPLES:BOOL=OFF ^
+    -D ITK_USE_SYSTEM_EXPAT:BOOL=OFF ^
+    -D ITK_USE_SYSTEM_HDF5:BOOL=ON ^
+    -D ITK_USE_SYSTEM_JPEG:BOOL=ON ^
+    -D ITK_USE_SYSTEM_PNG:BOOL=OFF ^
+    -D ITK_USE_SYSTEM_TIFF:BOOL=ON ^
+    -D ITK_USE_SYSTEM_EIGEN:BOOL=ON ^
+    -D ITK_USE_SYSTEM_ZLIB:BOOL=OFF ^
+    -D ITK_USE_KWSTYLE:BOOL=OFF ^
+    -D ITK_BUILD_DEFAULT_MODULES:BOOL=ON ^
+    -D Module_ITKReview:BOOL=ON ^
+    -D Module_SimpleITKFilters=ON ^
+    -D Module_ITKTBB:BOOL=ON ^
+    -D Module_MGHIO:BOOL=ON ^
+    -D Module_ITKIOTransformMINC:BOOL=ON ^
+    -D Module_GenericLabelInterpolator:BOOL=ON ^
+    -D Module_AdaptiveDenoising:BOOL=ON ^
+    -D "ITK_DEFAULT_THREADER:STRING=Pool" ^
+    -D "CMAKE_SYSTEM_PREFIX_PATH:PATH=%LIBRARY_PREFIX%" ^
+    -D "CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX%" ^
+    -D CMAKE_BUILD_TYPE:STRING=RELEASE ^
+    -D ITK_WRAP_PYTHON:BOOL=ON ^
+    -D ITK_USE_SYSTEM_CASTXML:BOOL=ON ^
+    -D WRAP_ITK_INSTALL_COMPONENT_IDENTIFIER:STRING=PythonWrapping ^
+    -D Python3_EXECUTABLE:FILEPATH="%PYTHON%" ^
+    -D ITK_WRAP_unsigned_short:BOOL=ON ^
+    -D ITK_WRAP_double:BOOL=ON ^
+    -D ITK_WRAP_complex_double:BOOL=ON ^
+    -D ITK_WRAP_IMAGE_DIMS:STRING="2;3;4" ^
+    -D PY_SITE_PACKAGES_PATH:PATH="Lib/site-packages" ^
+    "%SRC_DIR%"
+
+if errorlevel 1 exit 1
+
+REM Build step
+cmake --build . --config Release -- -j%CPU_COUNT%
+if errorlevel 1 exit 1
+
+REM Install step
+
 if errorlevel 1 exit 1
