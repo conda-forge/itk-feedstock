@@ -4,7 +4,8 @@ build_platform:
 github_actions:
   free_disk_space: true
 provider:
-  win: azure
+  osx: github_actions
+  win: github_actions
 conda_forge_output_validation: true
 github:
   branch_name: main
