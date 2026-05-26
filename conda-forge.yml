@@ -1,10 +1,10 @@
 build_platform:
   linux_aarch64: linux_64
-  osx_arm64: osx_64
 github_actions:
   free_disk_space: true
 provider:
   osx: github_actions
+  osx_arm64: github_actions
   win: github_actions
 conda_forge_output_validation: true
 github:

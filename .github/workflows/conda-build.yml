@@ -77,17 +77,17 @@ jobs:
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             os: macos
-            runs_on: ['macos-15-intel']
+            runs_on: ['macos-latest']
           - CONFIG: osx_arm64_python3.11.____cpython
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             os: macos
-            runs_on: ['macos-15-intel']
+            runs_on: ['macos-latest']
           - CONFIG: osx_arm64_python3.12.____cpython
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             os: macos
-            runs_on: ['macos-15-intel']
+            runs_on: ['macos-latest']
           - CONFIG: win_64_python3.10.____cpython
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
