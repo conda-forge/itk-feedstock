@@ -13,7 +13,8 @@ source:
 build:
   number: 0
   # Python wrapping is version-specific; target 3.10–3.12 only.
-  skip: true  # [(win and vc<14) or py<310 or py>312]
+  # Skip osx-64: the from-source build exceeds the 6h CI cap on Intel runners.
+  skip: true  # [(win and vc<14) or py<310 or py>312 or (osx and x86_64)]
 
 requirements:
   build:

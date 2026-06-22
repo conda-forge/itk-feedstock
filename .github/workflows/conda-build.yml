@@ -58,21 +58,6 @@ jobs:
             os: ubuntu
             runs_on: ['ubuntu-latest']
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-          - CONFIG: osx_64_python3.10.____cpython
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
-            os: macos
-            runs_on: ['macos-15-intel']
-          - CONFIG: osx_64_python3.11.____cpython
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
-            os: macos
-            runs_on: ['macos-15-intel']
-          - CONFIG: osx_64_python3.12.____cpython
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
-            os: macos
-            runs_on: ['macos-15-intel']
           - CONFIG: osx_arm64_python3.10.____cpython
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
