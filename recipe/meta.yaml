@@ -1,32 +1,80 @@
+{% set version = "5.4.6" %}
+
 package:
   name: itk
-  version: "5.3.0"
+  version: {{ version }}
+
+source:
+  url: https://github.com/InsightSoftwareConsortium/ITK/archive/v{{ version }}.tar.gz
+  sha256: cf28bc7220c57c24ebcbabbd3b2544ea7ab65f0aad430a99f8e157738ed812b7
+  patches:
+    - 0001-BUG-use-check_symbol_exists-for-TIFFFieldReadCount.patch
 
 build:
-  number: 1
-  skip: True  # [win32 or (win64 and py2k)]
+  number: 0
+  # Python wrapping is version-specific; target 3.10–3.12 only.
+  # Skip osx-64: the from-source build exceeds the 6h CI cap on Intel runners.
+  skip: true  # [(win and vc<14) or py<310 or py>312 or (osx and x86_64)]
 
 requirements:
+  build:
+    - cmake >=3.16.3,<3.30.0
+    - ninja
+    - {{ compiler('c') }}
+    - {{ stdlib("c") }}
+    - {{ compiler('cxx') }}
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
+    - castxml
   host:
+    - expat                     # [not win]
+    - fftw
+    - hdf5
+    - libjpeg-turbo
+    - libtiff
+    - libpng                    # [not win]
+    - eigen
+    - zlib                      # [not win]
+    - tbb-devel
     - python
-    - pip
-    - wheel
     - numpy
-    - setuptools
-  run:
-    - python
-    - numpy
-    - setuptools
 
-test:
-  imports:
-    - itk
+outputs:
+  # Self-contained Python package: the `itk/` module plus the C++ runtime
+  # libraries it links against.
+  - name: itk
+    script: itk_install.sh   # [not win]
+    script: itk_install.bat  # [win]
+    requirements:
+      run:
+        - python
+        - numpy
+        - expat                     # [not win]
+        - fftw
+        - hdf5
+        - libjpeg-turbo
+        - libtiff
+        - libpng                    # [not win]
+        - eigen
+        - zlib                      # [not win]
+        - tbb
+    test:
+      requires:
+        - python {{ python }}
+        - numpy
+      files:
+        - ITK-JPEG.jpg
+      imports:
+        - itk
+      commands:
+        - itkTestDriver --no-process --compare-MD5 ITK-JPEG.jpg 959e1682d19026fc62cfbdc140df31da
 
 about:
   home: https://www.itk.org/
   license: Apache-2.0
   license_file:
-    - LICENSE.txt
+    - LICENSE
     - NOTICE
   summary: ITK is an open-source toolkit for multidimensional image analysis
   doc_url: https://itk.org/ITK/help/documentation.html
