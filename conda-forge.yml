@@ -3,7 +3,7 @@ build_platform:
 github_actions:
   free_disk_space: true
 provider:
-  osx_arm64: github_actions
+  osx_arm64: azure
   win: github_actions
 conda_forge_output_validation: true
 github:
