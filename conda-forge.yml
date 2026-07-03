@@ -1,14 +1,15 @@
 build_platform:
   linux_aarch64: linux_64
-conda_build:
-  pkg_format: '2'
+workflow_settings:
+  free_disk_space: quick
+provider:
+  osx_arm64: azure
+  win: github_actions
 conda_forge_output_validation: true
 github:
   branch_name: main
   tooling_branch_name: main
-github_actions:
-  free_disk_space: true
-provider:
-  osx_arm64: azure
-  win: github_actions
+conda_build:
+  pkg_format: '2'
+conda_build_tool: rattler-build
 test: native_and_emulated
