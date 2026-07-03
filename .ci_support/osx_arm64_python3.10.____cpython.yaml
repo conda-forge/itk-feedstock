@@ -42,10 +42,8 @@ python:
 - 3.10.* *_cpython
 target_platform:
 - osx-arm64
-tbb:
-- '2023'
 tbb_devel:
-- '2023'
+- '2022'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
