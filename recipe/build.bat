@@ -46,6 +46,32 @@ REM Build step
 cmake --build . --config Release -- -j%CPU_COUNT%
 if errorlevel 1 exit 1
 
-REM Install step
+REM --- Install phase (previously the itk_install.bat output script) ---------
 
-if errorlevel 1 exit 1
+REM Install the C++ runtime libraries AND the Python wrapping payload into a
+REM single self-contained `itk` package.
+for %%c in (Runtime RuntimeLibraries Libraries PythonWrappingRuntimeLibraries Unspecified libraries) do (
+    cmake -DCOMPONENT=%%c -P %BUILD_DIR%\cmake_install.cmake
+)
+
+REM CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% lands the Python wrapping under
+REM %LIBRARY_PREFIX%\Lib\site-packages, which is not on the interpreter's
+REM sys.path. Relocate it to the real site-packages (%PREFIX%\Lib\site-packages)
+REM so `import itk` works. conda-build did this implicitly; rattler-build does
+REM not. robocopy returns exit codes < 8 on success.
+if exist "%LIBRARY_PREFIX%\Lib\site-packages" (
+    if not exist "%PREFIX%\Lib\site-packages" mkdir "%PREFIX%\Lib\site-packages"
+    robocopy "%LIBRARY_PREFIX%\Lib\site-packages" "%PREFIX%\Lib\site-packages" /E /MOVE /NFL /NDL /NJH /NJS /NC /NS
+    if errorlevel 8 exit 1
+    (call )
+)
+
+REM Verify the Python module landed on sys.path.
+if not exist "%PREFIX%\Lib\site-packages\itk" (
+    echo ERROR: no itk\ Python module under Lib\site-packages
+    exit 1
+)
+
+REM Headers and CMake config are not shipped in the runtime `itk` package.
+if exist "%LIBRARY_PREFIX%\include"   rmdir /S /Q "%LIBRARY_PREFIX%\include"
+if exist "%LIBRARY_PREFIX%\lib\cmake" rmdir /S /Q "%LIBRARY_PREFIX%\lib\cmake"

@@ -1,0 +1,98 @@
+schema_version: 1
+
+context:
+  version: "5.4.6"
+
+package:
+  name: itk
+  version: ${{ version }}
+
+source:
+  url: https://github.com/InsightSoftwareConsortium/ITK/archive/v${{ version }}.tar.gz
+  sha256: cf28bc7220c57c24ebcbabbd3b2544ea7ab65f0aad430a99f8e157738ed812b7
+  patches:
+    - 0001-BUG-use-check_symbol_exists-for-TIFFFieldReadCount.patch
+
+build:
+  number: 3
+  # Python wrapping is version-specific; target 3.10-3.12 only.
+  # Skip osx-64: the from-source build exceeds the 6h CI cap on Intel runners.
+  skip: match(python, "<3.10") or match(python, ">3.12") or (osx and x86_64)
+
+requirements:
+  build:
+    - cmake >=3.16.3,<3.30.0
+    - ninja
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler('cxx') }}
+    - if: build_platform != target_platform
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - numpy
+    - castxml
+  host:
+    - if: not win
+      then: expat
+    - fftw
+    - hdf5
+    - libjpeg-turbo
+    - libtiff
+    - if: not win
+      then: libpng
+    - eigen
+    - if: not win
+      then: zlib
+    - tbb-devel
+    - python
+    - numpy
+  run:
+    - python
+    - numpy
+    - if: not win
+      then: expat
+    - fftw
+    - hdf5
+    - libjpeg-turbo
+    - libtiff
+    - if: not win
+      then: libpng
+    - eigen
+    - if: not win
+      then: zlib
+    - tbb
+
+tests:
+  - python:
+      imports:
+        - itk
+      pip_check: false
+      python_version: ${{ python }}
+  - files:
+      recipe:
+        - ITK-JPEG.jpg
+    requirements:
+      run:
+        - python ${{ python }}
+        - numpy
+    script:
+      # libjpeg-turbo's SIMD IDCT differs by arch: x86_64 (SSE2) and arm64
+      # (NEON) decode to different MD5s. Accept both; itkTestDriver passes if
+      # the decoded image matches any listed baseline.
+      - itkTestDriver --no-process --compare-MD5 ITK-JPEG.jpg 959e1682d19026fc62cfbdc140df31da f3c22ee0eb6402a5eb320fb675112c45
+
+about:
+  license: Apache-2.0
+  license_file:
+    - LICENSE
+    - NOTICE
+  summary: ITK is an open-source toolkit for multidimensional image analysis
+  homepage: https://www.itk.org/
+  repository: https://github.com/InsightSoftwareConsortium/ITK
+  documentation: https://itk.org/ITK/help/documentation.html
+
+extra:
+  recipe-maintainers:
+    - thewtex
+    - hanayik
