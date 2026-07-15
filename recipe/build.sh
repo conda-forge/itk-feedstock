@@ -126,6 +126,8 @@ if [ ! -d "${PYSITE}/itk" ]; then
     exit 1
 fi
 
+"${PYTHON}" "${RECIPE_DIR}/install_itk_dist_info.py"
+
 # Headers and CMake config are not shipped in the runtime `itk` package.
 # Drop anything the component sweep may have leaked into the prefix.
 rm -rf "${PREFIX}/include"
