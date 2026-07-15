@@ -72,6 +72,9 @@ if not exist "%PREFIX%\Lib\site-packages\itk" (
     exit 1
 )
 
+"%PYTHON%" "%RECIPE_DIR%\install_itk_dist_info.py"
+if errorlevel 1 exit 1
+
 REM Headers and CMake config are not shipped in the runtime `itk` package.
 if exist "%LIBRARY_PREFIX%\include"   rmdir /S /Q "%LIBRARY_PREFIX%\include"
 if exist "%LIBRARY_PREFIX%\lib\cmake" rmdir /S /Q "%LIBRARY_PREFIX%\lib\cmake"
