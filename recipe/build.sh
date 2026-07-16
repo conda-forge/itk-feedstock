@@ -21,10 +21,17 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
         CMAKE_ARGS="${CMAKE_ARGS} -C ${try_run_results}"
     fi
     # Target-arch Python hints. find_package(Python3 Development.Module)
-    # otherwise introspects ${PYTHON} (BUILD x86_64 headers) which
+    # otherwise introspects ${PYTHON} (BUILD-arch headers) which
     # CMAKE_FIND_ROOT_PATH=${PREFIX} then filters out.
     CMAKE_ARGS="${CMAKE_ARGS} -DPython3_INCLUDE_DIR:PATH=${PREFIX}/include/python${PY_VER}"
-    CMAKE_ARGS="${CMAKE_ARGS} -DPython3_LIBRARY:FILEPATH=${PREFIX}/lib/libpython${PY_VER}.so"
+    if [[ "$(uname)" == "Darwin" ]]; then
+        CMAKE_ARGS="${CMAKE_ARGS} -DPython3_LIBRARY:FILEPATH=${PREFIX}/lib/libpython${PY_VER}.dylib"
+        # osx-64 target on arm64 build machines: Rosetta 2 runs the x86_64
+        # try_run binaries, so no TryRunResults file is needed for this target.
+        CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CROSSCOMPILING_EMULATOR=/usr/bin/arch;-x86_64"
+    else
+        CMAKE_ARGS="${CMAKE_ARGS} -DPython3_LIBRARY:FILEPATH=${PREFIX}/lib/libpython${PY_VER}.so"
+    fi
     # Castxml (Clang-based) needs an explicit target triple under cross-compile;
     # ITK's wrapping reads CMAKE_CXX_COMPILER_TARGET in itk_auto_load_submodules.cmake.
     CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_COMPILER_TARGET=${HOST}"
