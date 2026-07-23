@@ -16,8 +16,7 @@ source:
 build:
   number: 0
   # Python wrapping is version-specific; target 3.10-3.12 only.
-  # Skip osx-64: the from-source build exceeds the 6h CI cap on Intel runners.
-  skip: match(python, "<3.10") or match(python, ">3.12") or (osx and x86_64)
+  skip: match(python, "<3.10") or match(python, ">3.12")
 
 requirements:
   build:
