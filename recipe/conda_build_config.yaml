@@ -1,0 +1,7 @@
+# ITK 5.4 wraps via castxml --castxml-gccxml, which cannot represent libc++ >=21's
+# `using size_t = decltype(sizeof(int))` -> SWIG "Syntax error in input(3)" (ITK #5540, #6303).
+# shortcut: keep osx on clang/libc++ 19; drop this pin once the feedstock moves to ITK 6.
+c_compiler_version:    # [osx]
+  - 19                 # [osx]
+cxx_compiler_version:  # [osx]
+  - 19                 # [osx]
